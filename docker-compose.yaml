@@ -1,0 +1,45 @@
+services:
+  # Service API Backend (FastAPI)
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: cy-weather-api
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - cy-weather-network
+
+  # Service Frontend Web (Vue.js + Nginx)
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      args:
+        # URL de l'API pour le build
+        VITE_API_URL: http://localhost:8000/api
+    container_name: cy-weather-web
+    ports:
+      - "5173:80"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - cy-weather-network
+
+networks:
+  cy-weather-network:
+    driver: bridge
