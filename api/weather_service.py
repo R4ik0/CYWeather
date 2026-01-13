@@ -1,7 +1,7 @@
 import httpx
 from typing import Optional
 from datetime import datetime
-from src.models.Weather import (
+from Weather import (
     WeatherResponse,
     ForecastResponse,
     CurrentWeatherData,

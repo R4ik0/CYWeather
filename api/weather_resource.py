@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Query
 from typing import Optional
-from src.models.Weather import WeatherRequest, WeatherResponse, ForecastResponse
-from src.services.weather_service import weather_service
+from Weather import WeatherRequest, WeatherResponse, ForecastResponse
+from weather_service import weather_service
 import httpx
 
 

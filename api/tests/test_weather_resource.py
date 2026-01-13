@@ -3,7 +3,7 @@ from unittest.mock import patch, AsyncMock
 import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from src.resources.weather_resource import router
+from api.weather_resource import router
 
 @pytest.fixture
 def client():
